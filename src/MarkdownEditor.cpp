@@ -182,6 +182,7 @@ MarkdownEditor::MarkdownEditor
     cursorBlinkTimer = new QTimer(this);
     connect(cursorBlinkTimer, SIGNAL(timeout()), this, SLOT(toggleCursorBlink()));
     cursorBlinkTimer->start(500);
+    verticalScrollBar()->setVisible(false);
 }
 
 MarkdownEditor::~MarkdownEditor()
@@ -332,6 +333,13 @@ void MarkdownEditor::paintEvent(QPaintEvent* event)
             QTextOption opt = document()->defaultTextOption();
             opt = QTextOption(Qt::AlignRight);
             opt.setTextDirection(Qt::RightToLeft);
+            layout->setTextOption(opt);
+        }
+        else
+        {
+            QTextLayout* layout = block.layout();
+            QTextOption opt = document()->defaultTextOption();
+            opt = QTextOption(Qt::AlignJustify);
             layout->setTextOption(opt);
         }
 
